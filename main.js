@@ -15,8 +15,10 @@ app.post('/render_template', (req, res) => {
         res.status(400).send("Not enough arguments!")
         return;
     }
+
+    let id = (new Date()).getTime()
     
-    console.time('render-' + req.socket.remoteAddress);
+    console.time('render-' + id);
 
     let template = renderer.store_template(req.body.template)
 
@@ -27,7 +29,7 @@ app.post('/render_template', (req, res) => {
             res.status(400).send(reason)
         })
         .finally(function() {
-            console.timeEnd('render-' + req.socket.remoteAddress);
+            console.timeEnd('render-' + id);
         })
 })
 
