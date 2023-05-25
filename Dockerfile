@@ -1,12 +1,14 @@
 FROM node:latest
-RUN apt-get update
-
-COPY ./iANPR_Wrapper_linux.py /app/
-COPY ./ /app/
-
-EXPOSE 80
 
 WORKDIR /app
+
+COPY . /app
+
+RUN apt-get update
+
+RUN /bin/sh libreoffice_install.sh
+
+EXPOSE 80
 
 RUN npm install
 

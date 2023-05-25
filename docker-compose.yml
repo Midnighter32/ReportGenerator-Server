@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  report_generator.server:
+    build: .
+    ports:
+      - "8081:80"
+    environment:
+    - FACTORIES=1
+    restart: always
