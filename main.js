@@ -23,10 +23,12 @@ app.post('/render_template', (req, res) => {
     let data = renderer.render(template, req.body.data)
         .then(function(buf) { 
             res.contentType("application/pdf").send(buf)
-
+        }, function(reason) {
+            res.status(400).send(reason)
+        })
+        .finally(function() {
             console.timeEnd('render');
-        }, null
-    )
+        })
 })
 
 app.listen(port, () => {
