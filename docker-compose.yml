@@ -5,5 +5,5 @@ services:
     ports:
       - "8081:80"
     environment:
-    - FACTORIES=1
+    - FACTORIES=4
     restart: always
