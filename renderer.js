@@ -1,5 +1,6 @@
-const os = require('os');
+const os = require('os')
 const fs = require('fs')
+const path = require('path');
 const carbone = require('carbone')
 
 let factories = process.env.FACTORIES || 1
@@ -11,11 +12,22 @@ carbone.set({
 });
 console.log(`Report renderer app created ${factories} LibreOffice factories`)
 
-carbone.addFormatters({
-  func : function (msg) {
-    return msg + "thing"
+var files = fs.readdirSync('./plugins/').filter(file => file.match(/.*\.js/ig));
+files.forEach(file => {
+  let name = path.parse(file).name
+  try
+  {
+    let plugin = require('./plugins/' + file)
+    if (!plugin.load)
+      console.log(`[ Plugin ${name} ] Wrong format: load function is undefined`)
+    else {
+      plugin.load(carbone)
+      console.log(`[ Plugin ${name} ] Loaded`)
+    }
+  } catch (error) {
+    console.log(`[ Plugin ${name} ] Loading failed: ${error}`)
   }
-})
+});
 
 exports.store_template = function (buffer) {
   let template = Buffer.from(buffer, 'base64')
