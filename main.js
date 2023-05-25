@@ -16,7 +16,7 @@ app.post('/render_template', (req, res) => {
         return;
     }
     
-    console.time('render');
+    console.time('render-' + req.socket.remoteAddress);
 
     let template = renderer.store_template(req.body.template)
 
@@ -27,7 +27,7 @@ app.post('/render_template', (req, res) => {
             res.status(400).send(reason)
         })
         .finally(function() {
-            console.timeEnd('render');
+            console.timeEnd('render-' + req.socket.remoteAddress);
         })
 })
 
