@@ -7,3 +7,7 @@ services:
     environment:
     - FACTORIES=4
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
