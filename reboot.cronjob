@@ -1,0 +1,3 @@
+02 00    * * *   root    rm -rf /tmp/_office_c_*
+02 00    * * *   root    rm -rf /tmp/lu*
+02 00    * * *   root    rm /tmp/OSL_PIPE_*
